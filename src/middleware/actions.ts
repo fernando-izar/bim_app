@@ -3,7 +3,8 @@ export type ActionType =
   | "UPDATE_USER"
   | "START_MAP"
   | "REMOVE_MAP"
-  | "LOGOUT";
+  | "LOGOUT"
+  | "ADD_BUILDING";
 
 export interface Action {
   type: ActionType;
