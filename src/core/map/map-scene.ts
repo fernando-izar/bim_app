@@ -4,6 +4,7 @@ import * as THREE from "three";
 import * as OBC from "openbim-components";
 import { MAPBOX_KEY } from "../../config";
 import { User } from "firebase/auth";
+import { MapDatabase } from "./map-database";
 import { CSS2DObject } from "three/examples/jsm/renderers/CSS2DRenderer";
 
 export class MapScene {
@@ -13,6 +14,7 @@ export class MapScene {
   private center: LngLat = { lat: 0, lng: 0 };
   private clickedCoordinates: LngLat = { lat: 0, lng: 0 };
   private labels: { [id: string]: CSS2DObject } = {};
+  private database = new MapDatabase();
 
   constructor(container: HTMLDivElement) {
     const configuration = this.getConfig(container);
@@ -33,10 +35,18 @@ export class MapScene {
     this.labels = {};
   }
 
-  addBuilding(user: User) {
+  async getAllBuildings(user: User) {
+    const building = await this.database.getBuildings(user);
+    if (this.components) {
+      this.addToScene(building);
+    }
+  }
+
+  async addBuilding(user: User) {
     const { lat, lng } = this.clickedCoordinates;
     const userID = user.uid;
     const building = { userID, lat, lng, uid: "" };
+    building.uid = await this.database.add(building);
     this.addToScene([building]);
   }
 
