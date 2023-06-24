@@ -53,8 +53,14 @@ export const MapViewer: FC = () => {
           <Button onClick={onToggleCreate}>cancel</Button>
         </div>
       )}
-      <Button onClick={onToggleCreate}>Create Building</Button>
-      <Button onClick={onLogout}>Log out</Button>
+      <div className="gis-button-container">
+        <Button variant="contained" onClick={onToggleCreate}>
+          Create Building
+        </Button>
+        <Button variant="contained" onClick={onLogout}>
+          Log out
+        </Button>
+      </div>
     </>
   );
 };
