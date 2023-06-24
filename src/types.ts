@@ -11,6 +11,7 @@ export interface GisParameters {
 export interface Building {
   uid: string;
   lat: number;
+  userID: string;
   lng: number;
 }
 
