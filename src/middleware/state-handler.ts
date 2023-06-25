@@ -8,5 +8,14 @@ export const reducer = (state: State, action: Action) => {
       user: action.payload,
     };
   }
+  if (action.type === "OPEN_BUILDING") {
+    return {
+      ...state,
+      building: action.payload,
+    };
+  }
+  if (action.type === "CLOSE_BUILDING") {
+    return { ...state, building: null };
+  }
   return { ...state };
 };

@@ -4,7 +4,9 @@ export type ActionType =
   | "START_MAP"
   | "REMOVE_MAP"
   | "LOGOUT"
-  | "ADD_BUILDING";
+  | "ADD_BUILDING"
+  | "OPEN_BUILDING"
+  | "CLOSE_BUILDING";
 
 export interface Action {
   type: ActionType;
