@@ -10,6 +10,7 @@ import {
 } from "react";
 import { initialState, State } from "./state";
 import { Authenticator } from "./Authenticator";
+import { Events } from "./event-handler";
 
 const appContext = createContext<[State, React.Dispatch<Action>]>([
   initialState,
@@ -19,9 +20,14 @@ const appContext = createContext<[State, React.Dispatch<Action>]>([
 export const ContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, setState] = useReducer(reducer, initialState);
 
+  const events = new Events();
+  events.on("OPEN_BUILDING", (buildingID: string) => {
+    setState({ type: "OPEN_BUILDING", payload: buildingID });
+  });
+
   const dispatch = (value: Action) => {
     setState(value);
-    executeCore(value);
+    executeCore(value, events);
   };
 
   return (
